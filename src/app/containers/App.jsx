@@ -25,6 +25,8 @@ import Header from '../components/Header';
 import IntlProvider from '../components/IntlProvider';
 import MissedPage from '../components/MissedPage';
 import SearchParamsConfigurator from '../components/SearchParamsConfigurator';
+import BooksList from 'pageProviders/BooksList';
+import BookDetails from 'pageProviders/BookDetails';
 
 function App() {
   const dispatch = useDispatch();
@@ -78,6 +80,14 @@ function App() {
                     <Route
                       element={<SecretPage />}
                       path={`${pageURLs[pages.secretPage]}`}
+                    />
+                    <Route
+                      element={<BooksList />}
+                      path={`${pageURLs[pages.allBooksPage]}`}
+                    />
+                    <Route
+                      element={<BookDetails />}
+                      path={`${pageURLs[pages.bookPage]}`}
                     />
                     <Route
                       element={(

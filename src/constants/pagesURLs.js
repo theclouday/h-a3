@@ -5,6 +5,8 @@ const result = {
   [pages.defaultPage]: `${config.UI_URL_PREFIX}/${pages.defaultPage}`,
   [pages.login]: `${config.UI_URL_PREFIX}/${pages.login}`,
   [pages.secretPage]: `${config.UI_URL_PREFIX}/${pages.secretPage}`,
+  [pages.allBooksPage]: `${config.UI_URL_PREFIX}/${pages.allBooksPage}`,
+  [pages.bookPage]: `${config.UI_URL_PREFIX}/${pages.bookPage}`,
 };
 
 export default result;
