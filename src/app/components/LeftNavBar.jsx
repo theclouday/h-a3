@@ -28,8 +28,8 @@ const menuItems = [
     titleIntlId: `page.${pages.secretPage}`,
   },
   {
-    link: `${pagesURLs[pages.allBooksPage]}`,
-    titleIntlId: `page.${pages.allBooksPage}`
+    link: `${pagesURLs[pages.booksPage]}`,
+    titleIntlId: `page.${pages.booksPage}`,
   },
 ];
 
