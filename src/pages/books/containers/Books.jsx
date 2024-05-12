@@ -1,7 +1,7 @@
 import { useIntl } from 'react-intl';
 import React from 'react';
 import Typography from 'components/Typography';
-import BooksList from '../components/GetBooks';
+import BooksList from '../components/BooksList';
 
 function Books() {
   const { formatMessage } = useIntl();

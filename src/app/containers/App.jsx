@@ -26,7 +26,7 @@ import IntlProvider from '../components/IntlProvider';
 import MissedPage from '../components/MissedPage';
 import SearchParamsConfigurator from '../components/SearchParamsConfigurator';
 import Books from 'pageProviders/Books';
-import BookDetails from 'pageProviders/Book';
+import Book from 'pageProviders/Book';
 
 function App() {
   const dispatch = useDispatch();
@@ -86,8 +86,8 @@ function App() {
                       path={`${pageURLs[pages.booksPage]}`}
                     />
                     <Route
-                      element={<BookDetails />}
-                      path={`${pageURLs[pages.bookPage]}`}
+                      element={<Book />}
+                      path={`${pageURLs[pages.bookPage]}/:Id`}
                     />
                     <Route
                       element={(
