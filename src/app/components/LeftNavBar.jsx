@@ -27,10 +27,6 @@ const menuItems = [
     neededAuthorities: [authorities.ENABLE_SEE_SECRET_PAGE],
     titleIntlId: `page.${pages.secretPage}`,
   },
-  {
-    link: `${pagesURLs[pages.booksPage]}`,
-    titleIntlId: `page.${pages.booksPage}`,
-  },
 ];
 
 function LeftNavBar() {

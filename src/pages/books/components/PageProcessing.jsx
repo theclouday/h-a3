@@ -5,8 +5,6 @@ import Button from "components/Button";
 import DialogActions from "components/DialogActions";
 import DeleteIcon from "./DeleteIcon";
 import Link from "components/Link";
-import result from "constants/pagesURLs";
-import { bookPage } from "constants/pages";
 
 export function DeleteBook(id) {
   return fetch(BASE_API_LINK +'/'+ id, {
@@ -14,7 +12,7 @@ export function DeleteBook(id) {
   });
 }
 
-function ProceedDeleteBooks ({book, onDelete}) {
+function Processing ({book, onDelete}) {
   const [open, setOpen] = useState(false);
   const [isHovered, setHovered] = useState(false);
 
@@ -36,11 +34,10 @@ function ProceedDeleteBooks ({book, onDelete}) {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)} 
     >
-      <Link to={`${result[bookPage]}/${book.id}`}>
+      <Link href={`book/${book.id}`}>
         <div>
         <h2>{book.title}</h2>
         <p>{book.yearOfIssue} year</p>
-        <p>{book.id}</p>
         </div>
       </Link>
       {isHovered && (
@@ -63,4 +60,4 @@ function ProceedDeleteBooks ({book, onDelete}) {
   );
 }
 
-export default ProceedDeleteBooks;
+export default Processing;

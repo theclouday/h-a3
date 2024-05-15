@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import MenuItem from 'components/MenuItem';
 import Snackbar from 'components/Snackbar';
 import { BASE_API_LINK } from 'constants/apiURL';
-import ProceedDeleteBooks, { DeleteBook } from './ProceedDeleteBooks';
+import Processing, { DeleteBook } from './PageProcessing';
 import Link from 'components/Link';
 import Button from 'components/Button';
 
@@ -40,12 +40,12 @@ function BooksList() {
 
   return (
         <div className='book-list'>
-        <Link to={"/book/new"}>
+        <Link href='book/new'>
           <Button>Додати книгу</Button>
         </Link>
         {books.map((book, index) => (
           <MenuItem key={index}>
-              <ProceedDeleteBooks 
+              <Processing 
                 book={book}
                 onDelete={handleDelete}
                 />
