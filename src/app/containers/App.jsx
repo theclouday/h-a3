@@ -87,7 +87,7 @@ function App() {
                     />
                     <Route
                       element={<Book />}
-                      path={`${pageURLs[pages.bookPage]}/:Id`}
+                      path={`${pageURLs[pages.bookPage]}/:id`}
                     />
                     <Route
                       element={(

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { BASE_API_LINK } from "../constants/url";
+import { BASE_API_LINK } from "constants/apiURL";
 import Dialog from "components/Dialog";
 import Button from "components/Button";
 import DialogActions from "components/DialogActions";
@@ -9,7 +9,7 @@ import result from "constants/pagesURLs";
 import { bookPage } from "constants/pages";
 
 export function DeleteBook(id) {
-  return fetch(BASE_API_LINK +'/'+id, {
+  return fetch(BASE_API_LINK +'/'+ id, {
     method: 'DELETE',
   });
 }
@@ -40,6 +40,7 @@ function ProceedDeleteBooks ({book, onDelete}) {
         <div>
         <h2>{book.title}</h2>
         <p>{book.yearOfIssue} year</p>
+        <p>{book.id}</p>
         </div>
       </Link>
       {isHovered && (
