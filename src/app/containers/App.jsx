@@ -27,6 +27,7 @@ import MissedPage from '../components/MissedPage';
 import SearchParamsConfigurator from '../components/SearchParamsConfigurator';
 import Books from 'pageProviders/Books';
 import Book from 'pageProviders/Book';
+import NewBook from 'pages/book/сomponents/NewBook';
 
 function App() {
   const dispatch = useDispatch();
@@ -88,6 +89,10 @@ function App() {
                     <Route
                       element={<Book />}
                       path={`${pageURLs[pages.bookPage]}/:id`}
+                    />
+                    <Route
+                      element={<NewBook />}
+                      path={`${pageURLs[pages.newBookPage]}`}
                     />
                     <Route
                       element={(

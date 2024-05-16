@@ -5,6 +5,7 @@ import { BASE_API_LINK } from 'constants/apiURL';
 import Processing, { DeleteBook } from './PageProcessing';
 import Link from 'components/Link';
 import Button from 'components/Button';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const GET_LINK = BASE_API_LINK + '/all';
 
@@ -12,13 +13,49 @@ function BooksList() {
   const [books, setBooks] = useState([]);
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
+  const [filter, setFilter] = useState('');
+  const [page, setPage] = useState(1);
+  const [perPage, setPerPage] = useState(10);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
-    fetch(GET_LINK)
+    const params = new URLSearchParams(location.search);
+    setFilter(params.get('filter') || '');
+    setPage(parseInt(params.get('page')) || 1);
+    setPerPage(parseInt(params.get('perPage')) || 10);
+  
+  }, [location.search]);
+
+  useEffect(() => {
+    fetch(`${GET_LINK}?filter=${filter}
+                      &page=${page}
+                      &perPage=${perPage}`)
         .then(response => response.json())
         .then(data => setBooks(data))
         .catch(error => console.error('Error - ', error));
-  }, []);
+  }, [filter, page, perPage]);
+
+  const handleFilterChange = (event) => {
+    setFilter(event.target.value);
+    navigate(`?filter=${event.target.value}
+            &page=${page}
+            &perPage=${perPage}`);
+  };
+
+  const handleNextPage = () => {
+    setPage(page + 1);
+    navigate(`?filter=${filter}
+              &page=${page + 1} 
+              &perPage=${perPage}`);
+  };
+
+  const handlePrevPage = () => {
+    setPage(page - 1);
+    navigate(`?filter=${filter}
+              &page=${page - 1}
+              &perPage=${perPage}`);
+  };
   
   const handleDelete = (id) => {
     DeleteBook(id)
@@ -40,7 +77,13 @@ function BooksList() {
 
   return (
         <div className='book-list'>
-        <Link href='book/new'>
+          <input
+            type='text'
+            value={filter}
+            onChange={handleFilterChange}
+            placeholder='Filter books'
+          />
+        <Link href='/book/new'>
           <Button>Додати книгу</Button>
         </Link>
         {books.map((book, index) => (
@@ -51,6 +94,8 @@ function BooksList() {
                 />
           </MenuItem>
         ))}
+        <Button onClick={handlePrevPage}>Previous page</Button>
+        <Button onClick={handleNextPage}>Next page</Button>
         <Snackbar 
           open={openSnackbar}
           handleClose={handleCloseSnackbar}

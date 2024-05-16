@@ -5,23 +5,32 @@ import Button from 'components/Button';
 import EditIcon from './EditIcon';
 import CardContent from 'components/CardContent';
 import Snackbar from 'components/Snackbar';
-
+import { useNavigate } from 'react-router-dom';
 
 
 function RenderDetails() {
     const { id } = useParams();
     const [bookDetails, setBookDetails] = useState(null);
+    const [originalBookDetails, setOriginalBookDetails] = useState(null);
     const [isEditing, setIsEditing] = useState(id === 'new');
     const [openSnackbar, setOpenSnackbar] = useState(false);
     const [snackbarMessage, setSnackbarMessage] = useState('');
     const [errorInput, setErrorInput] = useState({});
+    const navigate = useNavigate();
     
 
+    const handleBack = () => {
+        navigate(-1);
+    };
+    
     useEffect(() => {
         if (id !== 'new') {
             fetch(BASE_API_LINK +'/'+ id)
             .then(response => response.json())
-            .then(data => setBookDetails(data));
+            .then(data => {
+                setBookDetails(data);
+                setOriginalBookDetails(data);
+            });
         }
     }, [id]);
 
@@ -40,6 +49,7 @@ function RenderDetails() {
 
     const handleCancel = () => {
         setIsEditing(false);
+        setBookDetails(originalBookDetails);
     };
 
     const handleCloseSnackbar = (event, reason) => {
@@ -52,7 +62,7 @@ function RenderDetails() {
     const handleSave = () => {
         if(validateInput()) {
             fetch(BASE_API_LINK +'/'+ id, {
-            method: 'POST',
+            method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -84,12 +94,14 @@ function RenderDetails() {
                 {isEditing ? (
                     <>
                         <input type='text' 
-                               defaultValue={bookDetails.title}
-                               className={errorInput.title ? 'error' : ''} 
+                               value={bookDetails.title}
+                               onChange={(e) => setBookDetails({...bookDetails, title: e.target.value})}
+                               style={errorInput.title ? { border: '1px solid red' } : {}} 
                         />
                         <input type='number' 
-                               defaultValue={bookDetails.yearOfIssue}
-                               className={errorInput.yearOfIssue ? 'error' : ''} 
+                               value={bookDetails.yearOfIssue}
+                               onChange={(e) => setBookDetails({...bookDetails, yearOfIssue: e.target.value})}
+                               style={errorInput.yearOfIssue ? { border: '1px solid red' } : {}} 
                         />
                         <Button onClick={handleSave}>Зберегти</Button>
                         <Button onClick={handleCancel}>Скасувати</Button>
@@ -114,6 +126,7 @@ function RenderDetails() {
                 )}
             </>
         )}
+        <Button onClick={handleBack}>Назад</Button>
         </div>
     );
 }

@@ -17,8 +17,4 @@ function Book () {
   );
 }
 
-<div>
-  Hallo
-</div>
-
 export default Book;
