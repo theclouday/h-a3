@@ -6,7 +6,7 @@ import EditIcon from './EditIcon';
 import CardContent from 'components/CardContent';
 import Snackbar from 'components/Snackbar';
 import { useNavigate } from 'react-router-dom';
-
+import fetchMock from 'fetch-mock';
 
 function RenderDetails() {
     const { id } = useParams();
@@ -23,6 +23,18 @@ function RenderDetails() {
         navigate(-1);
     };
     
+    fetchMock.get(BASE_API_LINK + '/' + id, {
+        status: 200,
+        body: { title: 'Test Book', yearOfIssue: 'test year' }, 
+    }, {
+        overwriteRoutes: true
+    });
+    
+    fetchMock.put(BASE_API_LINK + '/' + id, {
+        status: 200,
+        body: { message: 'Сутність була успішно відредагована' }
+    });
+
     useEffect(() => {
         if (id !== 'new') {
             fetch(BASE_API_LINK +'/'+ id)
@@ -57,7 +69,7 @@ function RenderDetails() {
           return;
         }
         setOpenSnackbar(false);
-      };
+    };
 
     const handleSave = () => {
         if(validateInput()) {
@@ -66,7 +78,7 @@ function RenderDetails() {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(bookDetails),
+            body: JSON.stringify({ title: 'New Title' }),
             })
             .then(response => {
                 if(!response.ok) {
@@ -76,7 +88,7 @@ function RenderDetails() {
             })
             .then(data => {
                 setIsEditing(false);
-                setSnackbarMessage('Сутність була успішно відредагована');
+                console.log(data);
                 setTimeout(() => setSnackbarMessage(''), 5000);
             })
             .catch(error => {

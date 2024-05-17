@@ -5,8 +5,17 @@ import Button from "components/Button";
 import DialogActions from "components/DialogActions";
 import DeleteIcon from "./DeleteIcon";
 import Link from "components/Link";
+import fetchMock from "fetch-mock";
+
+
 
 export function DeleteBook(id) {
+  fetchMock.delete(BASE_API_LINK + '/' + id, {
+    status: 200,
+    body: { message: 'Книга успешно удалена' }
+  }, {
+    overwriteRoutes: true
+  });
   return fetch(BASE_API_LINK +'/'+ id, {
     method: 'DELETE',
   });

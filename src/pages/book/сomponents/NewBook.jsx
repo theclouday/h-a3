@@ -2,12 +2,20 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from 'components/Button';
 import { BASE_API_LINK } from 'constants/apiURL';
+import fetchMock from 'fetch-mock';
 
 function NewBook() {
     const [title, setTitle] = useState('');
     const [yearOfIssue, setYearOfIssue] = useState('');
     const [authorId, setAuthorId] = useState('');
     const navigate = useNavigate();
+
+    fetchMock.post(BASE_API_LINK, {
+        status: 200,
+        body: { message: 'Книга збережена' }
+    }, {
+        overwriteRoutes: true
+    });
 
     const handleSave = () => {
 

@@ -6,6 +6,7 @@ import Processing, { DeleteBook } from './PageProcessing';
 import Link from 'components/Link';
 import Button from 'components/Button';
 import { useNavigate, useLocation } from 'react-router-dom';
+import fetchMock from 'fetch-mock';
 
 const GET_LINK = BASE_API_LINK + '/all';
 
@@ -18,6 +19,13 @@ function BooksList() {
   const [perPage, setPerPage] = useState(10);
   const navigate = useNavigate();
   const location = useLocation();
+  
+  fetchMock.get(`${GET_LINK}?filter=${encodeURIComponent(filter)}&page=${page}&perPage=${perPage}`, {
+    status: 200,
+    body: { books: ['Test Book 1', 'Test Book 2', 'Test Book 3'] }
+  }, {
+    overwriteRoutes: true
+  });
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
