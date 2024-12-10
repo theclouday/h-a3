@@ -13,6 +13,7 @@ const Dialog = ({
   children,
   fullScreen = false,
   onClose,
+  onConfirm,
   open,
   maxWidth = maxWidthVariants.sm,
 }) => {
@@ -21,6 +22,7 @@ const Dialog = ({
       fullScreen={fullScreen}
       fullWidth
       onClose={onClose}
+      onConfirm={onConfirm}
       open={open}
       maxWidth={maxWidth}
     >
